@@ -28,6 +28,7 @@
 ;;; String
 
 (defmulti string-format->spec identity)
+;; TODO: implement format modifiers
 (defmethod string-format->spec :date [_] nil)
 (defmethod string-format->spec :date-time [_] nil)
 (defmethod string-format->spec :password [_] nil)
@@ -220,6 +221,13 @@
     (cond-> defs
       nullable nilable)))
 
+
+;; TODO: Mixed
+
+(defn ^:private mixed?
+  [schema]
+  (boolean
+   (some #{:oneOf :anyOf :allOf} (keys schema))))
 
 ;; Utils
 
